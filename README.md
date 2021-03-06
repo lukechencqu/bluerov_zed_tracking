@@ -1,0 +1,2 @@
+# bluerov_zed_tracking
+CVPR2021/IROS2021论文对应的源码。用ZED双目的3D点云/2DRGB图像双模态检测及跟踪bluerov2heavy机器人
