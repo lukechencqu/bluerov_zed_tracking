@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="rosbag" type="play" name="rosbag" args="-d 2 $(find pcl)/cloud_2020-04-02-12-01-37.bag"/>
+  <node name="extract" pkg="image_view" type="extract_images" respawn="false" output="screen" cwd="ROS_HOME">
+<remap from="image" to="/zed/zed_node/left/image_rect_color"/>
+  </node>
+</launch>

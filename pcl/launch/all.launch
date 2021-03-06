@@ -1,0 +1,41 @@
+<launch>
+    <!-- arguments -->
+    <!-- record rosbag? -->
+    <arg name="record" default="false"/>
+    <!-- use recorded video to test cascade_detection? -->
+    <arg name="use_video" default="false"/>
+
+
+    <!-- use recorded video to test cascade_detection -->
+    <!-- video list
+        bluerov2heavy without:
+        2020-10-29_19.47.43.mkv
+        2020-10-29_16.42.30.mkv
+        bluerov2heavy with optical communication:
+        2020-10-29_19.28.24.mkv
+        2020-10-29_19.31.18.mkv
+        2020-10-29_19.38.11.mkv
+        2020-10-29_19.42.03.mkv
+        2020-10-29_19.50.13.mkv
+     -->
+    <!-- args="$(find pcl)/video/2020-10-29_19.47.43.mkv"/> -->
+    <group if="$(arg use_video)">
+        <node name="video_to_rosmsg" pkg="pcl" type="video_to_rosmsg" output="screen"
+        args="/home/bluerov/data/video/3.mkv file:///home/bluerov/data/camera_info.yaml"/>
+    </group>    
+
+
+    <!-- cascade_detection -->
+    <include file="$(find pcl)/launch/cascade_detection.launch" />
+
+
+    <!-- cloud_detection -->
+    <include file="$(find pcl)/launch/cloud_detection.launch" />
+
+
+    <!-- rosbag record -->
+    <group if="$(arg record)">
+        <include file="$(find pcl)/launch/zed_rosbag_record.launch" />
+    </group>
+
+</launch>

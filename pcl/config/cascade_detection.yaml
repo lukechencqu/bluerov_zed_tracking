@@ -1,0 +1,57 @@
+debug: true
+## 订阅的图像话题是否同时保护相机参数信息？据此调用不同的图像话题订阅回调函数
+imageAndCameraInfoCallback: true
+
+
+#################### 加载目标训练模型 #######################
+#### 表现良好的全局与局部模型组合
+## cascade_nosubcabin_global_0729 + cascade_nested_06w3_4
+## cascade_subcabin_global_06w3_2 + cascade_nested_06w3_4
+
+#### xavier1
+## no subcabin
+#cascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_nosubcabin_global_0729.xml"
+#nestedCascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_nested_06w3_4.xml"
+## with subcabin
+cascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_subcabin_global_06w3_2.xml"
+nestedCascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_nested_06w3_4.xml"
+
+#### xavier2
+## no subcabin
+#cascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_nosubcabin_global_0729.xml"
+#nestedCascadeName: "/home/bluerov/bluerov/src/pcl/cascade/cascade_nested_06w3_4.xml"
+## with subcabin
+# cascadeName: "/home/bluerov2/bluerov2/src/pcl/cascade/cascade_subcabin_global_06w3_2.xml"
+# nestedCascadeName: "/home/bluerov2/bluerov2/src/pcl/cascade/cascade_nested_06w3_4.xml"
+
+#### xavier2
+# cascadeName: "/home/bluerov2/bluerov2/src/pcl/cascade/bluerov2heavy_without_subcabin_our_rov_0729.xml"
+# nestedCascadeName: "/home/bluerov2/bluerov2/src/pcl/cascade/cascade4_small.xml"
+# videoName: "/home/bluerov2/bluerov2/src/pcl/video/a1.mp4"
+# #nestedCascadeName: "/home/bluerov2/bluerov2/src/pcl/cascade/cascade_nested_0728_2.xml"
+#####################################################
+
+videoName: "/home/bluerov/bluerov/src/pcl/video/a1.mp4"
+
+# Cascade::detectMultiScale()检测器函数参数
+detectMultiScale:
+  # 外层模型
+  minSizeScale: 0.05
+  maxSizeScale: 0.8
+  continuousDetectNum: 30 #50
+  # 内层模型
+  minColSizeScaleNested: 0.4
+  maxColSizeScaleNested: 1.0
+  minRowSizeScaleNested: 0.1
+  maxRowSizeScaleNested: 0.5
+  continuousDetectNumNested: 1
+
+scale: 1.0
+rectNestedScale: 1.0
+
+filterDepthValue: 3
+
+#### 允许的最大连续漏数和跳变数
+lost_jump:
+  failedDetectMaxCount: 4 # max allowed lost num.
+  jumpBiasCountMax: 20 # max allowed jumped num.

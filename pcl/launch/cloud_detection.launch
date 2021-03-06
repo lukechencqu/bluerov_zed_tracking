@@ -1,0 +1,9 @@
+<!-- https://www.cnblogs.com/hong2016/p/7624280.html -->
+<launch>
+    <!-- Important: Use simulated time published on /clock topic, otherwise TF will be broken -->
+    <!-- <param name="/use_sim_time" value="true"/> -->
+
+    <node name="cloud_detection" pkg="pcl" type="cloud_detection_node" output="screen">
+        <rosparam command="load" file="$(find pcl)/config/cloud_detection.yaml"/>
+    </node>
+</launch>

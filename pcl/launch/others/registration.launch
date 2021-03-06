@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="pcl" type="imageCloudRegistration" name="imageCloudRegistration" output="screen" />
+    <node pkg="rviz" type="rviz" name="registration_rviz"/>
+</launch>

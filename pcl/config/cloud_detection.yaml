@@ -1,0 +1,133 @@
+debug_publish: true
+debug_initialize: true
+
+useThread: true # enable/disable multi thread.
+useKF: true # enable/disable kalman filter.
+hasGT: false # whether has the ground truth pose of the target.
+savePose: false
+useNED: false
+
+Topics:
+  #! bluerov2h ZED
+  cloudTopic: "/zed/zed_node/point_cloud/cloud_registered" # 3d point clouds topic.
+  rectTopic: "/cascade_detection/rov_rect" # the rect msgs topic output by 2d cascade detector.
+  
+saveCloudDir: "/home/bluerov2/data/"
+
+frequency: 20 # fused pose output rate.
+
+#### for locked point initialization
+initialization:
+  consecutiveTinyFluctuationTimes: 5 # num
+  poseFluctuationX: 0.2 # m
+  poseFluctuationY: 0.2 # m
+  poseFluctuationZ: 0.5 # m
+
+#### target 3D bbx model
+objectModel:
+  useModelCheck: false
+  ## geometric characters
+  length: 0.33 # m
+  width: 0.4 # m
+  height: 0.38 # m    
+  sFactor_min: 0.5 # >= min scale factor * model size
+  sFactor_max: 2 # <= max scale factor * model size
+  pFactor: 0.6 # >= proportionality factor * model size
+  ## point clouds numbers
+  number: 200 # m, >= points number
+  nFactor: 0.6 # >= number factor * reference cloud number
+
+#### for enable/disable the specified filter module.
+pointcloudFilter:
+  debug: false
+  passthroughFilter: false
+  removeGround: false
+  voxelDownsample: true
+  outlierRemove: true
+
+passthrough_filter: # m
+  ###########! bluerov2 ZED(rosbag 清华水池)，x朝前
+  useDynamicROI: false
+  setFilterLimits_X1: 0.4
+  setFilterLimits_X2: 3
+  setFilterLimits_Y1: -0.3
+  setFilterLimits_Y2: 0.3
+  setFilterLimits_Z1: -0.05
+  setFilterLimits_Z2: 0.5      
+
+downsample:
+  setLeafSize: 0.03 # m
+
+OutlierRemoval:
+  setRadiusSearch: 0.2 # m, only available for [radius outlier remove] algorithm.
+  setMinNeighborsInRadius: 30 # num
+  setMeanK: 10 # num, only available for [statistical outlier remove] algorithm.
+  setStddevMulThresh: 1
+  
+cluster:
+  clusterTolerance: 0.04 # m, important!
+  clusterMinSize: 50 # num
+  clusterMaxSize: 500 # num
+  # clusterTolerance: 0.1
+  # clusterMinSize: 100
+  # clusterMaxSize: 5000
+
+#### 3D锥体
+frustum:
+  adaptive: true # the size of frustum adaptive to the position of the detected target in real time ?
+  depthMin: 0.3 # m, min range to camera origin
+  depthMax: 3 # m, max range to camera origin
+
+cameraIntrinsic:
+# ZED #1 Serial Number -> 24690 left_rect, HD720
+  # fx: 679.2294311523438
+  # fy: 679.2294311523438
+  # cx: 620.7433471679688
+  # cy: 350.60980224609375
+# ZED #1 Serial Number -> 24690 left_rect, vga
+  fx: 351.3375
+  fy: 351.3375
+  cx: 333.69
+  cy: 181.0575
+
+#### KalmanFilter
+KalmanFilter:
+  # 通过调整Q和R值大小，来调整KF结果是接近模型预测值还是传感器测量值
+  #### 第1组参数调参值：此组参数KF结果与BBX测量值有较大延迟！
+  # process noise Q，过程噪声，越小则越相信预测值，则KF结果跟踪测量值延迟越大
+  # axNoise: 0.001
+  # ayNoise: 0.001
+  # azNoise: 0.001
+  # measurement noise R，测量噪声，越小则越相信测量值，，则KF结果跟踪测量值延迟越小
+  # xNoise: 10
+  # yNoise: 10
+  # zNoise: 10
+   #### 第2组参数调参值：此组参数KF结果与BBX测量值实时性较为接近（推荐）
+  # process noise Q，过程噪声，越小则越相信预测值，则KF结果跟踪测量值延迟越大
+  axNoise: 0.01
+  ayNoise: 0.01
+  azNoise: 0.01  
+  # measurement noise R，测量噪声，越小则越相信测量值，，则KF结果跟踪测量值延迟越小
+  xNoise: 1
+  yNoise: 1
+  zNoise: 1  
+
+#### 目标位置前后帧跳变允许阈值(m)
+poseJumpBiasThreshold:
+  x: 1
+  y: 1
+  z: 1
+
+###################### 以下参数暂时取消
+calibration:
+  kx: 1 #1.66 # base frame
+  ky: 1
+  kz: 1  
+  
+ICP:
+  icpMethod: 0 # 0-successive icp, 1-static icp
+  setMaximumIterations: 1
+  setTransformationEpsilon: 0.0000000001
+  setEuclideanFitnessEpsilon: 0.01
+  setMaxCorrespondenceDistance: 1
+  setRANSACIterations: 100

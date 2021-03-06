@@ -1,0 +1,4 @@
+string file1
+string file2
+---
+geometry_msgs/Point rmse

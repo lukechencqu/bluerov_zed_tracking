@@ -1,0 +1,93 @@
+<!-- http://wiki.ros.org/rosbag/Commandline#record -->
+<launch>
+    <node name="record" pkg="rosbag" type="record"
+        args="-o zed_record 
+        /tf /tf_static 
+        /clock         
+        /zed/zed_node/point_cloud/cloud_registered
+        /zed/zed_node/left/image_rect_color
+        /zed/zed_node/left/camera_info
+        /cascade_detection/image
+        /cloud_detection/trapezoid3D
+        /cloud_detection/fused_center
+        /cloud_detection/fusedpose   
+        /cloud_detection/bbx_center
+        /cloud_detection/bbxpose   
+        /cascade_detection/reprojected_3dbbx_center  
+        /cloud_detection/fused_path
+        /cloud_detection/locked_frame_path
+        ">
+    </node>
+</launch>
+
+<!-- 水下标定所需话题 -->
+<!--  
+        /tf /tf_static 
+        /clock     
+        /zed/zed_node/left/camera_info 
+        /zed/zed_node/left/image_rect_color
+        /zed/zed_node/left_raw/image_raw_color
+-->
+
+<!-- 建议录制的最少话题 -->
+<!-- 
+    /zed/zed_node/point_cloud/cloud_registered
+    /tf /tf_static 
+    /clock 
+    /zed/zed_node/left/image_rect_color
+    /zed/zed_node/left/camera_info
+
+录包数据信息
+==========================================================
+7.2GB/28秒
+path:        zed_record_2020-08-05-11-43-46.bag
+version:     2.0
+duration:    27.9s
+start:       Aug 05 2020 11:43:46.94 (1596599026.94)
+end:         Aug 05 2020 11:44:14.84 (1596599054.84)
+size:        7.2 GB
+messages:    2514
+compression: none [838/838 chunks]
+types:       sensor_msgs/CameraInfo  [c9a58c1b0b154e0e6da7578cb991d214]
+             sensor_msgs/Image       [060021388200f6f0f447d0fcd9c64743]
+             sensor_msgs/PointCloud2 [1158d486dd51d683ce2f1be655c3c181]
+             tf2_msgs/TFMessage      [94810edda583a504dfda3829e70d7eec]
+topics:      /tf                                          838 msgs    : tf2_msgs/TFMessage     
+             /tf_static                                     1 msg     : tf2_msgs/TFMessage     
+             /zed/zed_node/left/camera_info               838 msgs    : sensor_msgs/CameraInfo 
+             /zed/zed_node/left/image_rect_color          419 msgs    : sensor_msgs/Image      
+             /zed/zed_node/point_cloud/cloud_registered   418 msgs    : sensor_msgs/PointCloud2
+==========================================================
+-->
+
+
+
+
+<!-- zed相机基本信息及标定参数 -->
+<!-- 
+    /zed/zed_node/depth/camera_info
+    /zed/zed_node/left/camera_info
+    /zed/zed_node/left_raw/camera_info
+    /zed/zed_node/rgb/camera_info
+    /zed/zed_node/rgb_raw/camera_info
+    /zed/zed_node/right/camera_info
+    /zed/zed_node/right_raw/camera_info 
+-->
+
+<!-- tf变换，包括机器人、ZED相机所有完整的tf树！ -->
+<!-- 
+    /tf /tf_static 
+    /clock 
+-->
+
+<!-- 左右相机矫正畸变后的RGB图像 -->
+<!-- 
+    /zed/zed_node/left/image_rect_color
+    /zed/zed_node/right/image_rect_color
+    /zed/zed_node/stereo/image_rect_color
+-->
+
+
+
+
+

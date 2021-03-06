@@ -1,0 +1,10 @@
+<!-- http://wiki.ros.org/rosbag/Commandline#record -->
+<launch>
+    <node name="record" pkg="rosbag" type="record"
+        args="-o zed_filtered_record 
+        /zed/zed_node/left/camera_info
+        /zed/zed_node/left/image_rect_color
+        /zed/zed_node/point_cloud/cloud_registered
+        ">
+    </node>
+</launch>

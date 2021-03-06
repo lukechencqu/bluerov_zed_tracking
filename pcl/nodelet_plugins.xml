@@ -1,0 +1,7 @@
+<library path="lib/libPCL">
+    <class name="pcl/Pcl" type="pcl::Pcl" base_class_type="nodelet::Nodelet">
+        <description>
+            get object's pose variations.
+        </description>
+    </class>
+</library>
